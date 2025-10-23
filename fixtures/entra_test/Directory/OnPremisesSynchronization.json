@@ -1,0 +1,31 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#directory/onPremisesSynchronization/$entity",
+  "id": "775a4b29-b4ec-434a-857e-8d0628d4c1e5",
+  "configuration": {
+    "accidentalDeletionPrevention": {
+      "synchronizationPreventionType": "enabledForCount",
+      "alertThreshold": 500
+    }
+  },
+  "features": {
+    "passwordSyncEnabled": true,
+    "passwordWritebackEnabled": false,
+    "directoryExtensionsEnabled": true,
+    "quarantineUponUpnConflictEnabled": true,
+    "quarantineUponProxyAddressesConflictEnabled": true,
+    "softMatchOnUpnEnabled": true,
+    "cloudPasswordPolicyForPasswordSyncedUsersEnabled": false,
+    "fopeConflictResolutionEnabled": false,
+    "unifiedGroupWritebackEnabled": true,
+    "userWritebackEnabled": false,
+    "deviceWritebackEnabled": false,
+    "synchronizeUpnForManagedUsersEnabled": true,
+    "userForcePasswordChangeOnLogonEnabled": false,
+    "concurrentOrgIdProvisioningEnabled": true,
+    "concurrentCredentialUpdateEnabled": false,
+    "groupWriteBackEnabled": false,
+    "blockSoftMatchEnabled": false,
+    "blockCloudObjectTakeoverThroughHardMatchEnabled": false,
+    "bypassDirSyncOverridesEnabled": false
+  }
+}

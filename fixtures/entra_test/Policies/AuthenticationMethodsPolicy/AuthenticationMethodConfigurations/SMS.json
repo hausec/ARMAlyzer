@@ -1,0 +1,13 @@
+{
+  "state": "enabled",
+  "includeTarget": {
+    "targetType": "group",
+    "id": "all_users",
+    "isRegistrationRequired": false
+  },
+  "excludeTarget": {
+    "targetType": "group",
+    "id": "00000000-0000-0000-0000-000000000000"
+  },
+  "@odata.type": "#microsoft.graph.smsAuthenticationMethodConfiguration"
+}

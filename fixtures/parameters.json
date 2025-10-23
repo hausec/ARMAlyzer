@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "virtualMachines_WindowsAssessment_name": {
+          "value": null
+      },
+      "disks_WindowsAssessment_OsDisk_1_db8cfc0704a9426c83c6d2c97616db55_externalid": {
+          "value": null
+      },
+      "networkInterfaces_windowsassessment821_externalid": {
+          "value": null
+      }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "id": "775a4b29-b4ec-434a-857e-8d0628d4c1e5",
+  "deletedDateTime": null,
+  "businessPhones": [
+    "555-0123"
+  ],
+  "city": "Test City",
+  "country": null,
+  "countryLetterCode": "US",
+  "createdDateTime": "2019-11-18T21:40:02Z",
+  "defaultUsageLocation": null,
+  "displayName": "Test Directory",
+  "isMultipleDataLocationsForServicesEnabled": null,
+  "marketingNotificationEmails": [],
+  "onPremisesLastSyncDateTime": "2020-02-22T04:43:52Z",
+  "onPremisesSyncEnabled": true,
+  "partnerTenantType": null,
+  "postalCode": "12345",
+  "preferredLanguage": "en",
+  "securityComplianceNotificationMails": [],
+  "securityComplianceNotificationPhones": [],
+  "state": "CA",
+  "street": "123 Test Street",
+  "technicalNotificationMails": [
+    "admin@testcompany.com"
+  ],
+  "tenantType": "AAD",
+  "directorySizeQuota": {
+    "used": 451,
+    "total": 50000
+  },
+  "assignedPlans": [
+    {
+      "assignedDateTime": "2023-08-20T13:55:08Z",
+      "capabilityStatus": "Enabled",
+      "service": "WindowsAzure",
+      "servicePlanId": "fca3e605-0754-4279-8504-3f1229f29614"
+    }
+  ],
+  "onPremisesSyncStatus": [
+    {
+      "attributeSetName": "iab",
+      "state": "enabled",
+      "version": 1
+    }
+  ],
+  "privacyProfile": {
+    "contactEmail": "",
+    "statementUrl": ""
+  },
+  "provisionedPlans": [
+    {
+      "capabilityStatus": "Suspended",
+      "provisioningStatus": "Success",
+      "service": "Adallom"
+    }
+  ],
+  "verifiedDomains": [
+    {
+      "capabilities": "None",
+      "isDefault": false,
+      "isInitial": false,
+      "name": "testcompany.mail.onmicrosoft.com",
+      "type": "Managed"
+    },
+    {
+      "capabilities": "Email, OfficeCommunicationsOnline",
+      "isDefault": true,
+      "isInitial": true,
+      "name": "testcompany.onmicrosoft.com",
+      "type": "Managed"
+    }
+  ],
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#organization/$entity"
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "virtualMachines_WindowsAssessment_name": {
+          "defaultValue": "WindowsAssessment",
+          "type": "String"
+      },
+      "disks_WindowsAssessment_OsDisk_1_db8cfc0704a9426c83c6d2c97616db55_externalid": {
+          "defaultValue": "/subscriptions/7cd95fb1-1234-4a0d-91b4-d1999a961ba4/resourceGroups/TESTING/providers/Microsoft.Compute/disks/WindowsAssessment_OsDisk_1_db8cfc0704a9426c83c6d2c97616db55",
+          "type": "String"
+      },
+      "networkInterfaces_windowsassessment821_externalid": {
+          "defaultValue": "/subscriptions/7cd95fb1-1234-4a0d-91b4-d1999a961ba4/resourceGroups/Testing/providers/Microsoft.Network/networkInterfaces/windowsassessment821",
+          "type": "String"
+      }
+  },
+  "variables": {},
+  "resources": [
+      {
+          "type": "Microsoft.Compute/virtualMachines",
+          "apiVersion": "2024-11-01",
+          "name": "[parameters('virtualMachines_WindowsAssessment_name')]",
+          "location": "eastus",
+          "identity": {
+              "type": "SystemAssigned, UserAssigned",
+              "userAssignedIdentities": {
+                  "/subscriptions/7cd95fb1-1234-4a0d-91b4-d1999a961ba4/resourceGroups/LabRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/Test_MI": {},
+                  "/subscriptions/7cd95fb1-1234-4a0d-91b4-d1999a961ba4/resourceGroups/Testing/providers/Microsoft.ManagedIdentity/userAssignedIdentities/AssessmentMI": {}
+              }
+          },
+          "properties": {
+              "hardwareProfile": {
+                  "vmSize": "Standard_D2s_v3"
+              },
+              "storageProfile": {
+                  "imageReference": {
+                      "publisher": "MicrosoftWindowsDesktop",
+                      "offer": "Windows-10",
+                      "sku": "win10-21h2-ent",
+                      "version": "latest"
+                  },
+                  "osDisk": {
+                      "osType": "Windows",
+                      "name": "[concat(parameters('virtualMachines_WindowsAssessment_name'), '_OsDisk_1_db8cfc0704a9426c83c6d2c97616db55')]",
+                      "createOption": "FromImage",
+                      "caching": "ReadWrite",
+                      "managedDisk": {
+                          "id": "[parameters('disks_WindowsAssessment_OsDisk_1_db8cfc0704a9426c83c6d2c97616db55_externalid')]"
+                      },
+                      "deleteOption": "Delete"
+                  },
+                  "dataDisks": []
+              },
+              "osProfile": {
+                  "computerName": "WindowsAssessme",
+                  "adminUsername": "hausec",
+                  "windowsConfiguration": {
+                      "provisionVMAgent": true,
+                      "enableAutomaticUpdates": true,
+                      "patchSettings": {
+                          "patchMode": "AutomaticByOS",
+                          "assessmentMode": "ImageDefault",
+                          "enableHotpatching": false
+                      }
+                  },
+                  "secrets": [],
+                  "allowExtensionOperations": true,
+                  "requireGuestProvisionSignal": true
+              },
+              "networkProfile": {
+                  "networkInterfaces": [
+                      {
+                          "id": "[parameters('networkInterfaces_windowsassessment821_externalid')]",
+                          "properties": {
+                              "deleteOption": "Delete"
+                          }
+                      }
+                  ]
+              },
+              "licenseType": "Windows_Client"
+          }
+      }
+  ]
+}

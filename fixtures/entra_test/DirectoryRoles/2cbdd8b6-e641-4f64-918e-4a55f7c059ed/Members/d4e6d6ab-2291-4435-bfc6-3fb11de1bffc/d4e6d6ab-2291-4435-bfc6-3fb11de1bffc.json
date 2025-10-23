@@ -1,0 +1,7 @@
+{
+  "@odata.type": "#microsoft.graph.user",
+  "id": "d4e6d6ab-2291-4435-bfc6-3fb11de1bffc",
+  "userPrincipalName": "admin@testcompany.onmicrosoft.com",
+  "displayName": "Test Admin User",
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#directoryObjects(id,userPrincipalName,displayName)/$entity"
+}
