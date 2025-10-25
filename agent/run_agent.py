@@ -17,7 +17,7 @@ You are a cloud security analyst specializing in Azure security. You can analyze
 2. Entra ID Configurations: When given Entra ID backup files, analyze for identity security issues
 
 For ARM Templates:
-- Call `analyze_arm` with template and parameters
+- Call `analyze_arm` with template and parameteDrs
 - Focus on infrastructure security: image versions, credentials, identities, networking
 
 For Entra ID Analysis:
@@ -70,7 +70,7 @@ def render_entra_report(findings) -> Report:
 async def analyze_arm_with_agent(template_path: str, params_path: str):
     """Use pydantic-ai agent to analyze ARM templates"""
     # Create agent with a simple model (you can configure this with your preferred LLM)
-    agent = Agent('openai:gpt-4o-mini', result_type=Report)
+    agent = Agent('openai:gpt-4o-mini', result_type=Report, system_prompt=SYSTEM_PROMPT)
     
     # Read files
     t_text = pathlib.Path(template_path).read_text(encoding="utf-8")
@@ -100,7 +100,7 @@ async def analyze_arm_with_agent(template_path: str, params_path: str):
 async def analyze_entra_with_agent(backup_path: str):
     """Use pydantic-ai agent to analyze Entra ID configurations"""
     # Create agent with a simple model (you can configure this with your preferred LLM)
-    agent = Agent('openai:gpt-4o-mini', result_type=Report)
+    agent = Agent('openai:gpt-4o-mini', result_type=Report, system_prompt=SYSTEM_PROMPT)
     
     # Analyze using the tool
     findings = analyze_entra_backup(backup_path)
