@@ -69,6 +69,12 @@ def render_entra_report(findings) -> Report:
 
 async def analyze_arm_with_agent(template_path: str, params_path: str):
     """Use pydantic-ai agent to analyze ARM templates"""
+    import os
+    
+    # Check if API key is set
+    if not os.getenv('OPENAI_API_KEY'):
+        raise ValueError("OPENAI_API_KEY environment variable is not set. Please set it to use the LLM agent.")
+    
     # Create agent with a simple model (you can configure this with your preferred LLM)
     agent = Agent('openai:gpt-4o-mini', result_type=Report, system_prompt=SYSTEM_PROMPT)
     
@@ -99,6 +105,12 @@ async def analyze_arm_with_agent(template_path: str, params_path: str):
 
 async def analyze_entra_with_agent(backup_path: str):
     """Use pydantic-ai agent to analyze Entra ID configurations"""
+    import os
+    
+    # Check if API key is set
+    if not os.getenv('OPENAI_API_KEY'):
+        raise ValueError("OPENAI_API_KEY environment variable is not set. Please set it to use the LLM agent.")
+    
     # Create agent with a simple model (you can configure this with your preferred LLM)
     agent = Agent('openai:gpt-4o-mini', result_type=Report, system_prompt=SYSTEM_PROMPT)
     

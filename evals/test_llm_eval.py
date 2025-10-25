@@ -98,27 +98,30 @@ What is the highest priority vulnerability in this ARM template? Provide the vul
     print(f"Created dataset with {len(dataset.cases)} cases")
     return dataset
 
-async def mock_analyze_vulnerability_task(inputs: dict) -> VulnerabilityAnalysis:
-    """Mock task function that simulates LLM analysis without API calls"""
+async def analyze_vulnerability_task(inputs: dict) -> VulnerabilityAnalysis:
+    """Real LLM task function that analyzes ARM templates for vulnerabilities"""
     
-    # Simulate LLM analysis by using our analyzer and creating a mock response
-    template_text = inputs["template"]
-    params_text = inputs["parameters"]
+    import os
     
-    # Use our analyzer to get the actual findings
-    findings = analyze_arm(IngestArgs(template_text=template_text, parameters_text=params_text))
+    # Check if API key is set
+    if not os.getenv('OPENAI_API_KEY'):
+        raise ValueError("OPENAI_API_KEY environment variable is not set. Please set it to use the LLM agent.")
     
-    # Find the highest severity finding
-    severity_order = {"high": 0, "med": 1, "low": 2}
-    highest_severity_finding = min(findings.findings, key=lambda x: severity_order[x.severity])
-    
-    # Return a mock LLM response that should match our expected output
-    return VulnerabilityAnalysis(
-        highest_priority_vulnerability=highest_severity_finding.message,
-        vulnerability_id=highest_severity_finding.id,
-        severity=highest_severity_finding.severity,
-        explanation=f"This is a {highest_severity_finding.severity} severity security issue that should be addressed first."
-    )
+    try:
+        # Create agent
+        agent = Agent('openai:gpt-4o-mini', result_type=VulnerabilityAnalysis, system_prompt=SYSTEM_PROMPT)
+        
+        print(f"Running LLM analysis with prompt length: {len(inputs['prompt'])} characters")
+        
+        # Run the agent with the prompt
+        result = await agent.run(inputs["prompt"])
+        
+        print(f"LLM response: {result.data}")
+        return result.data
+        
+    except Exception as e:
+        print(f"Error in LLM task: {e}")
+        raise
 
 def test_llm_vulnerability_identification():
     """Test LLM's ability to identify highest priority vulnerabilities"""
@@ -149,9 +152,9 @@ def test_llm_vulnerability_identification():
     for evaluator in evaluators:
         dataset.add_evaluator(evaluator)
     
-    # Run evaluation using the mock task function
+    # Run evaluation using the real LLM task function
     import asyncio
-    results = asyncio.run(dataset.evaluate(mock_analyze_vulnerability_task))
+    results = asyncio.run(dataset.evaluate(analyze_vulnerability_task))
     
     print("LLM Vulnerability Analysis Evaluation Results:")
     print("=" * 50)
@@ -265,9 +268,9 @@ Rank the vulnerabilities by priority and identify the most critical one that sho
     for evaluator in evaluators:
         dataset.add_evaluator(evaluator)
     
-    # Run evaluation with mock task
+    # Run evaluation with real LLM task
     import asyncio
-    results = asyncio.run(dataset.evaluate(mock_analyze_vulnerability_task))
+    results = asyncio.run(dataset.evaluate(analyze_vulnerability_task))
     
     print("LLM Priority Ranking Evaluation Results:")
     print("=" * 50)
